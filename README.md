@@ -34,4 +34,4 @@ Library allowing you to build proxy instances at runtime. Similar to AOP concept
 
 ## More examples ##
 
-
+https://github.com/ejsmont-artur/phpProxyBuilder/blob/master/useCases.php
