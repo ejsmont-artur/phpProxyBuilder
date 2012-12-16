@@ -1,16 +1,15 @@
-phpProxyBuilder
-===============
+# php-proxy
 
 Library allowing you to build proxy instances at runtime. Similar to AOP concepts.
 
-## Features ##
+## Features
 
-1. Create prox instances at runtime. 
+1. Create proxy instances at runtime. 
 2. Proxy instance passes all type checks of original obejct.
 3. Proxy instance delegates all or selected methods to the original object.
 4. 100% decoupled code, proxy does not know what is proxied, target does not know that it is proxied.
 
-## Notes ##
+## Notes
 
 1. Proxied object is not modified in any way. 
 2. You can proxy any existing PHP object.
@@ -33,7 +32,7 @@ Library allowing you to build proxy instances at runtime. Similar to AOP concept
     proxyImplementationInstance can decide when and how to delegate to targetInstance (as in CachingAroundProxy)
     
 
-## Exampe use ##
+## Example use
 
     <?php
     // real instances of target and "aspect" proxy
@@ -58,7 +57,7 @@ Library allowing you to build proxy instances at runtime. Similar to AOP concept
     ($proxiedCalculator instanceof SlowCalculator) == true;
     ($proxiedCalculator instanceof CachingAroundProxy) == false;
 
-## More examples ##
+## More examples
 
 Please have a look at this php file added. It contains a pseudo-code of target, proxy, and a few interfaces.
 It shows how generator would be used and what would it allow you to do.
@@ -66,3 +65,16 @@ It shows how generator would be used and what would it allow you to do.
 Warning - code in that file is a hack / sample i have not ran it and it is not complete.
 
 https://github.com/ejsmont-artur/phpProxyBuilder/blob/master/useCases.php
+
+## Running the tests
+
+Tests are run via PHPUnit It is assumed to be installed via PEAR.
+
+From the root of the repository
+
+    phpunit --bootstrap php-unit-bootstrap.php Proxy/Tests/Unit
+
+## Authors
+
+* Artur Esjmont (https://github.com/ejsmont-artur)
+* Shawn Murphy (https://github.com/seguer)
