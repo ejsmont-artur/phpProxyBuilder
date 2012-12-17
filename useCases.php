@@ -87,7 +87,7 @@ class CachingAroundProxy implements AroundProxy {
 
 // =====================================================================
 
-$calculator = new SimpleCalculator();
+$calculator = new SlowCalculator();
 $proxy = new CachingAroundProxy(500);
 
 $factory = new StrictInterfaceProxyFactory();

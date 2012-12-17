@@ -10,28 +10,56 @@ Library allowing you to build proxy instances at runtime. Similar to AOP concept
 3. Proxy instance delegates all or selected methods to the original object.
 4. 100% decoupled code, proxy does not know what is proxied, target does not know that it is proxied.
 
+## Notes ##
+
+1. Proxied object is not modified in any way. 
+2. You can proxy any existing PHP object.
+3. Proxied object can invoke it's own methods and these calls do not go throught the proxy. 
+    This can be considered a good or a bad thing depending on how you look at it. It is a problem if you wanted to 
+    selectively proxy methods for something like security. You could imagine developer changing the underlying code
+    and delegating from less secure method to more secure method and proxy would not have a chance to intercept that.
+    On the other hand you have full transparency of what happens and library is very lightweight, it does not modify existing code.
+4. If you want strict AOP you might want to consider class-load-time-weaving, which modifies class when it is loaded for the first time.
+    Then you can get full method interception as instances of class created have proxy baked-in.
+    Have a look at https://github.com/lisachenko/go-aop-php as it looks promising (not sure if it is production ready)
+5. Performance should not be affected significantly by this construct as we would generate classes and write them to cache files.
+    Class could be cached in APC (or other byte code cache) and reused after initial run.
+6. Diagram of objects would look like this (where <> represents composition, has a reference).
+
+        proxyImplementationInstance-----<>generatedProxyInstance<>-----targetInstance
+
+    targetInstance and proxyImplementationInstance are "owned" by the generatedProxyInstance. 
+    generatedProxyInstance routes method calls to proxyImplementationInstance.
+    proxyImplementationInstance can decide when and how to delegate to targetInstance (as in CachingAroundProxy)
+    
+
 ## Clinet code interactions ##
 
     <?php
-
+    // real instances of target and "aspect" proxy
     $calculator = new SimpleCalculator();
     $proxy = new CachingAroundProxy(5);
 
+    // get proxied instance
     $factory = new StrictInterfaceProxyFactory();
-
     $proxiedCalculator = $factory->createProxy($calculator, $proxy);
 
+    // call target directly (proxy does not get called)
     $calculator->add(3, 6); //9 slow
     $calculator->add(3, 6); //9 slow
 
+    // call target via proxy
     $proxiedCalculator->add(3, 6); //9 slow (cache miss)
     $proxiedCalculator->add(3, 6); //9 fast (cache hit)
     $proxiedCalculator->add(3, 1); //4 slow
 
+    // type checks
     ($proxiedCalculator instanceof Calculator) == true;
     ($proxiedCalculator instanceof SlowCalculator) == true;
     ($proxiedCalculator instanceof CachingAroundProxy) == false;
 
 ## More examples ##
+
+Please have a look at this php file
 
 https://github.com/ejsmont-artur/phpProxyBuilder/blob/master/useCases.php
