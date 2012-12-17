@@ -33,7 +33,7 @@ Library allowing you to build proxy instances at runtime. Similar to AOP concept
     proxyImplementationInstance can decide when and how to delegate to targetInstance (as in CachingAroundProxy)
     
 
-## Clinet code interactions ##
+## Exampe use ##
 
     <?php
     // real instances of target and "aspect" proxy
@@ -60,6 +60,9 @@ Library allowing you to build proxy instances at runtime. Similar to AOP concept
 
 ## More examples ##
 
-Please have a look at this php file
+Please have a look at this php file added. It contains a pseudo-code of target, proxy, and a few interfaces.
+It shows how generator would be used and what would it allow you to do.
+
+Warning - code in that file is a hack / sample i have not ran it and it is not complete.
 
 https://github.com/ejsmont-artur/phpProxyBuilder/blob/master/useCases.php
