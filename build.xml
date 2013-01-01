@@ -23,6 +23,7 @@
     </target>
 
     <target name="init">
+        <mkdir dir="${basedir}/build" />
         <mkdir dir="${basedir}/build/logs" />
         <mkdir dir="${basedir}/build/coverage" />
         <mkdir dir="${basedir}/build/dist" />
