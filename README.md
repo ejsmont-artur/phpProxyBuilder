@@ -7,7 +7,7 @@ Library allowing you to build proxy instances at runtime. Similar to AOP concept
 
 1. Create prox instances at runtime. 
 2. Proxy instance passes all type checks of original obejct.
-3. Proxy instance delegates all or selected methods to the original object.
+3. Proxy instance delegates all methods to the original object.
 4. 100% decoupled code, proxy does not know what is proxied, target does not know that it is proxied.
 
 ## Notes ##
