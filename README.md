@@ -1,4 +1,4 @@
-# php-proxy
+# phpProxyBuilder
 
 Library allowing you to build proxy instances at runtime. Similar to AOP concepts.
 
@@ -64,15 +64,24 @@ It shows how generator would be used and what would it allow you to do.
 
 Warning - code in that file is a hack / sample i have not ran it and it is not complete.
 
-https://github.com/ejsmont-artur/phpProxyBuilder/blob/master/useCases.php
+https://github.com/ejsmont-artur/phpProxyBuilder/blob/master/docs/useCases.php
 
 ## Running the tests
 
 Tests are run via PHPUnit It is assumed to be installed via PEAR.
+Tests can be ran using phpunit alone or via ant build targets.
+"ci" target generate code coverage repor, "phpunit" target does not.
 
-From the root of the repository
+You can run all tests by any of the following:
 
-    phpunit --bootstrap php-unit-bootstrap.php Proxy/Tests/Unit
+    ant
+    ant phpunit
+    ant ci
+
+You can run selected test case by running:
+
+    cd tests
+    phpunit Unit/PhpProxyBuilder/Proxy/ArrayCachingProxyTest.php
 
 ## Authors
 
