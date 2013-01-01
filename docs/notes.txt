@@ -1,0 +1,24 @@
+
+
+I would like to provide default generic proxy implementations but they would need some external code for example
+    CachingProxy            -> cahces method calls
+    CircuitBreakerProxy     -> fails quickly if service is down
+    MethodCallLoggingProxy  -> logs method and args
+    InstrumentationProxy    -> counters/timers
+    ExceptionLoggingProxy   -> logs exception and rethrows
+
+Questions / Notes?
+- Basic code formatting, is netbeans autoformat ok with you?
+- I would like to make the lib easy to drop into symforny2 and ZF2, any ideas how avoid issues?
+- How do we shield our library code from 3rd party components like logger/cache/circuitbreaker ?
+- I would like to keep tests in separate dir and build package without non-production code so it never hits live servers. is that ok?
+- Really not sure about naming, maybe we have some chat or google chat often to agree on some naming? I would prefer to
+keep names meaningful and distinct. For example there is a lot of phpProxy results in google. Giving it a distinct name will
+make it easier to find us. As to method, namespaces and classes i am really not sure so i would prefer getting your feedback on them :)
+I would like to make it as intuitive as possible and naming is really important part of it.
+- Jenkins setup - if you setme up with permission to CI i can make changes so it would publish code coverage and other metrics.
+This is the roughly standard build.xml/phpuni.xml set i usually use so should be fine.
+
+Useful links:
+    Spring AOP intro - its way too much for us but worth reviewing
+        http://static.springsource.org/spring/docs/3.2.x/spring-framework-reference/html/aop.html#aop-introduction
