@@ -9,14 +9,13 @@
  * file that was distributed with this source code.
  */
 
-namespace PhpProxyBuilder\Adapter\Cache;
-
-use PhpProxyBuilder\Adapter\CacheInterface;
+namespace PhpProxyBuilder\Adapter;
 
 /**
- * Simple example of the CacheInterface implementation using in-memory array 
+ * Minimalistic cache interface used internally to shield the library from external libraries.
+ * Adapters can be provided for different frameworks like ZF2, Symfony2 etc.
  */
-class SimpleArrayCache implements CacheInterface {
+interface CacheInterface {
 
     /**
      * Load cache item or return null if not present.
@@ -25,9 +24,7 @@ class SimpleArrayCache implements CacheInterface {
      * @param string $key
      * @return mixed|null value or null if value was not found
      */
-    public function get($key) {
-        
-    }
+    public function get($key);
 
     /**
      * Save value in cache for up to optionl $ttl seconds
@@ -36,8 +33,5 @@ class SimpleArrayCache implements CacheInterface {
      * @param int       $ttl    optional seconds to live or default value set by implementation
      * @return void
      */
-    public function set($key, $value, $ttl = null) {
-        
-    }
-
+    public function set($key, $value, $ttl = null);
 }
