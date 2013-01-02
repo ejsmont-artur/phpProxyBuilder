@@ -17,6 +17,8 @@ namespace PhpProxyBuilder\Tmp;
  * Any instance can be wrapped around with any AroundProxyInterface implementation.
  * 
  * FIXME - to be removed later
+ * 
+ * @package PrivateComponents
  */
 class Sample {
 

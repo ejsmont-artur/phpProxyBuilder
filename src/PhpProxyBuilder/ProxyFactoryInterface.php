@@ -17,6 +17,8 @@ use PhpProxyBuilder\AroundProxyInterface;
  * Interface used to create proxied instances of a target object.
  * 
  * Any instance can be wrapped around with any AroundProxyInterface implementation.
+ * 
+ * @package PublicApi
  */
 interface ProxyFactoryInterface {
 

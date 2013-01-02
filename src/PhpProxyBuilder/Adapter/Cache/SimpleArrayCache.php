@@ -15,6 +15,8 @@ use PhpProxyBuilder\Adapter\CacheInterface;
 
 /**
  * Simple example of the CacheInterface implementation using in-memory array 
+ * 
+ * @package PrivateComponents
  */
 class SimpleArrayCache implements CacheInterface {
 

@@ -21,6 +21,8 @@ use PhpProxyBuilder\Aop\ProceedingJoinPoint;
  * stuff but delegate to unknown method on unknown object. 
  * 
  * Indirection via ProceedingJoinPoint to guard interfaces and ensure dynamic assembly.
+ * 
+ * @package PrivateComponents
  */
 class ArrayCachingProxy implements AroundProxyInterface {
 

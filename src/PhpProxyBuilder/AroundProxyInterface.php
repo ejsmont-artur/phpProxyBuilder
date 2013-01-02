@@ -21,6 +21,8 @@ use PhpProxyBuilder\Aop\ProceedingJoinPoint;
  * target object by $jointPoint->proceed();
  * 
  * This interface is called an "Advice" in AOP terms.
+ * 
+ * @package PublicApi
  */
 interface AroundProxyInterface {
 

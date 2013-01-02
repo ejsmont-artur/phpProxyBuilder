@@ -21,6 +21,8 @@ namespace PhpProxyBuilder\Aop;
  * 
  * @link http://www.eclipse.org/aspectj/doc/released/runtime-api/org/aspectj/lang/ProceedingJoinPoint.html
  * @link http://static.springsource.org/spring/docs/3.0.x/reference/aop.html
+ * 
+ * @package PublicApi
  */
 interface ProceedingJoinPoint {
 

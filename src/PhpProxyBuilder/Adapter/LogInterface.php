@@ -14,6 +14,8 @@ namespace PhpProxyBuilder\Adapter;
 /**
  * Minimalistic logging interface used internally to shield the library from external libraries.
  * Adapters can be provided for different frameworks like ZF2, Symfony2 etc.
+ * 
+ * @package PublicApi
  */
 interface Log {
 
