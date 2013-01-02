@@ -1,0 +1,36 @@
+Notes on how to setup this project on Jenkins (http://jenkins-ci.org/)
+
+
+Dependencies of build "ci" target:
+    PHPUnit http://www.phpunit.de/
+    xdebug  http://xdebug.org/
+    phpdox  https://github.com/theseer/phpdox
+
+
+    Install deps on Ubuntu:
+        sudo apt-get install phpunit php5-xdebug php-pear php5-xsl graphviz
+        sudo pear channel-discover pear.phpdoc.org
+        sudo pear install phpdoc/phpDocumentor-alpha
+
+To setup this project on jenkins ci install recent jenkins version with
+    Git Plugin
+    Clover PHP Plugin
+
+
+Setup new job with 
+    git url:
+        git://github.com/ejsmont-artur/phpProxyBuilder.git
+    Set 
+        Branches to build
+            In advanced "button" check "Skip internal tag"
+        Publish Clover PHP Coverage Report
+            Clover XML Location = build/logs/clover.xml
+        Publish HTML Report
+            Clover HTML report directory = build/coverage/
+        Publish JUnit test result report
+            Test report XMLs = build/logs/junit.xml
+        Publish Javadoc
+            Javadoc directory = build/doc/
+
+
+Tested with 1.424 jenkins shipped with Ubuntu.

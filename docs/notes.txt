@@ -24,6 +24,7 @@ Rich Proxies - I would like to provide default generic proxy implementations but
 
 Useful links:
     Spring AOP intro - its way too much for us but worth reviewing
+        http://static.springsource.org/spring/docs/3.0.x/reference/aop.html
         http://static.springsource.org/spring/docs/3.2.x/spring-framework-reference/html/aop.html#aop-introduction
 
     PHP AOP lib to check out some more, code looks good:

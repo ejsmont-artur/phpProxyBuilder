@@ -66,7 +66,7 @@ Warning - code in that file is a hack / sample i have not ran it and it is not c
 
 https://github.com/ejsmont-artur/phpProxyBuilder/blob/master/docs/useCases.php
 
-## Running the tests
+## Running tests
 
 Tests are run via PHPUnit It is assumed to be installed via PEAR.
 Tests can be ran using phpunit alone or via ant build targets.

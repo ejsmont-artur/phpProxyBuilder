@@ -25,6 +25,7 @@
     <target name="init">
         <mkdir dir="${basedir}/build" />
         <mkdir dir="${basedir}/build/logs" />
+        <mkdir dir="${basedir}/build/doc" />
         <mkdir dir="${basedir}/build/coverage" />
         <mkdir dir="${basedir}/build/dist" />
     </target>
@@ -40,6 +41,7 @@
             <fileset dir="/tmp" includes="unit-test*"/>        
         </delete>
     </target>
+    
     <target name="phpunitExtended">
         <exec executable="phpunit" dir="${basedir}/tests" failonerror="on">
             <arg line="--configuration phpunit-extended.xml" />
@@ -49,6 +51,12 @@
         </delete>
     </target>
 
+    <target name="phpdoc">
+        <exec executable="phpdoc" dir="${basedir}" failonerror="off">
+            <arg line="-d src/ -t build/doc" />
+        </exec>
+    </target>
+    
     <!-- Depending on how we want to distribute/deploy code, we might want to build some type of release here -->
     <!-- For now i think a tgz archive is a good start but we could consider some better way of packaging -->
     <target name="package">
@@ -67,6 +75,6 @@
     
     <target name="full" depends="quick,phpunitExtended,package"/>
 
-    <target name="ci"   depends="quick,phpunitExtended"/>
+    <target name="ci"   depends="quick,phpunitExtended,phpdoc"/>
 
 </project>
