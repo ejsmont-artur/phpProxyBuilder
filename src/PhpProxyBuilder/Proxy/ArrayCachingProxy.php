@@ -11,7 +11,7 @@
 
 namespace PhpProxyBuilder\Proxy;
 
-use PhpProxyBuilder\AroundProxyInterface;
+use PhpProxyBuilder\AroundProxy;
 use PhpProxyBuilder\Aop\ProceedingJoinPoint;
 
 /**
@@ -24,7 +24,7 @@ use PhpProxyBuilder\Aop\ProceedingJoinPoint;
  * 
  * @package PrivateComponents
  */
-class ArrayCachingProxy implements AroundProxyInterface {
+class ArrayCachingProxy implements AroundProxy {
 
     /**
      * @var array items are stored in array for now

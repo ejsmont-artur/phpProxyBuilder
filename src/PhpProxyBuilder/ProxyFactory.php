@@ -11,7 +11,7 @@
 
 namespace PhpProxyBuilder;
 
-use PhpProxyBuilder\AroundProxyInterface;
+use PhpProxyBuilder\AroundProxy;
 
 /**
  * Interface used to create proxied instances of a target object.
@@ -20,7 +20,7 @@ use PhpProxyBuilder\AroundProxyInterface;
  * 
  * @package PublicApi
  */
-interface ProxyFactoryInterface {
+interface ProxyFactory {
 
     /**
      * Wraps object and delegates all method calls to proxy.

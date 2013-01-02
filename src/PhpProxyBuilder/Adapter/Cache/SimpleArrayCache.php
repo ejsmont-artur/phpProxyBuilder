@@ -11,14 +11,14 @@
 
 namespace PhpProxyBuilder\Adapter\Cache;
 
-use PhpProxyBuilder\Adapter\CacheInterface;
+use PhpProxyBuilder\Adapter\Cache;
 
 /**
  * Simple example of the CacheInterface implementation using in-memory array 
  * 
  * @package PrivateComponents
  */
-class SimpleArrayCache implements CacheInterface {
+class SimpleArrayCache implements Cache {
 
     /**
      * Load cache item or return null if not present.

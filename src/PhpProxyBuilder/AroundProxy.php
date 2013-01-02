@@ -24,7 +24,7 @@ use PhpProxyBuilder\Aop\ProceedingJoinPoint;
  * 
  * @package PublicApi
  */
-interface AroundProxyInterface {
+interface AroundProxy {
 
     /**
      * Method called instead of the target object. You have a chance to do whatever you need:
