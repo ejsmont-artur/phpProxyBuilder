@@ -22,21 +22,24 @@ interface Log {
     /**
      * Log message as debug level
      * @param string $message
+     * @param mixed $attachment optional array or structure of data to be attached
      * @return void
      */
-    public function logDebug($message);
+    public function logDebug($message, $attachment = null);
 
     /**
      * Log message as warning level
      * @param string $message
+     * @param mixed $attachment optional array or structure of data to be attached
      * @return void
      */
-    public function logWarning($message);
+    public function logWarning($message, $attachment = null);
 
     /**
      * Log message as error level
      * @param string $message
+     * @param mixed $attachment optional array or structure of data to be attached
      * @return void
      */
-    public function logError($message);
+    public function logError($message, $attachment = null);
 }

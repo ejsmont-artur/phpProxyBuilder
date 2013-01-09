@@ -50,5 +50,5 @@ interface ProceedingJoinPoint {
      * Returns array of arguments passed to the intercepted method call.
      * @return mixed[] array of arguments passed to the proxied method 
      */
-    public function getArgs();
+    public function getArguments();
 }

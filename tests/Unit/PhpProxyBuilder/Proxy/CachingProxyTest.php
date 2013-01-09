@@ -2,13 +2,14 @@
 
 namespace Tests\Unit\PhpProxyBuilder\Proxy;
 
-use PhpProxyBuilder\Proxy\ArrayCachingProxy;
+use PhpProxyBuilder\Adapter\Cache\SimpleArrayCache;
+use PhpProxyBuilder\Proxy\CachingProxy;
 use PhpProxyBuilder\Aop\ProceedingJoinPoint;
 
-class ArrayCachingProxyTest extends \PHPUnit_Framework_TestCase {
+class CachingProxyTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var ArrayCachingProxy 
+     * @var CachingProxy 
      */
     private $instance;
 
@@ -18,6 +19,11 @@ class ArrayCachingProxyTest extends \PHPUnit_Framework_TestCase {
     private $target;
 
     /**
+     * @var SimpleArrayCache
+     */
+    private $cache;
+
+    /**
      * @var ProceedingJoinPoint|PHPUnit_Framework_MockObject_MockObject
      */
     private $jointPoint;
@@ -25,7 +31,8 @@ class ArrayCachingProxyTest extends \PHPUnit_Framework_TestCase {
     public function setup() {
         parent::setup();
 
-        $this->instance = new ArrayCachingProxy(2);
+        $this->cache = new SimpleArrayCache(2);
+        $this->instance = new CachingProxy($this->cache);
         $this->target = new \StdClass();
 
         $this->jointPoint = $this->getMock('PhpProxyBuilder\Aop\ProceedingJoinPoint');
@@ -35,7 +42,7 @@ class ArrayCachingProxyTest extends \PHPUnit_Framework_TestCase {
     public function testNonCachedCall() {
         $this->jointPoint->expects($this->exactly(2))->method("getMethodName")->will($this->returnValue("double"));
         $this->jointPoint->expects($this->any())
-                ->method("getArgs")
+                ->method("getArguments")
                 ->will($this->onConsecutiveCalls(array(2), array(3)));
         $this->jointPoint->expects($this->exactly(2))->method("proceed")->will($this->onConsecutiveCalls(4, 6));
 
@@ -47,7 +54,7 @@ class ArrayCachingProxyTest extends \PHPUnit_Framework_TestCase {
     public function testNonCachedCallByMethodName() {
         $this->jointPoint->expects($this->exactly(2))->method("getMethodName")->will($this->onConsecutiveCalls("double", "add"));
         $this->jointPoint->expects($this->any())
-                ->method("getArgs")
+                ->method("getArguments")
                 ->will($this->onConsecutiveCalls(array(2), array(2)));
         $this->jointPoint->expects($this->exactly(2))->method("proceed")->will($this->onConsecutiveCalls(4, 2));
 
@@ -59,7 +66,7 @@ class ArrayCachingProxyTest extends \PHPUnit_Framework_TestCase {
     public function testCachedCall() {
         $this->jointPoint->expects($this->exactly(3))->method("getMethodName")->will($this->returnValue("double"));
         $this->jointPoint->expects($this->any())
-                ->method("getArgs")
+                ->method("getArguments")
                 ->will($this->onConsecutiveCalls(array(2), array(2), array(2)));
         $this->jointPoint->expects($this->exactly(1))->method("proceed")->will($this->returnValue(4));
 
@@ -72,7 +79,7 @@ class ArrayCachingProxyTest extends \PHPUnit_Framework_TestCase {
     public function testCapacity() {
         $this->jointPoint->expects($this->exactly(5))->method("getMethodName")->will($this->returnValue("double"));
         $this->jointPoint->expects($this->any())
-                ->method("getArgs")
+                ->method("getArguments")
                 ->will($this->onConsecutiveCalls(array(1), array(2), array(3), array(4), array(1)));
         $this->jointPoint->expects($this->exactly(5))->method("proceed")->will($this->onConsecutiveCalls(2, 4, 6, 8, 2));
 
