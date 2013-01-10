@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace PhpProxyBuilder\Proxy;
+namespace PhpProxyBuilder\Aop\Advice;
 
-use PhpProxyBuilder\AroundProxy;
-use PhpProxyBuilder\Aop\ProceedingJoinPoint;
+use PhpProxyBuilder\Aop\AroundAdviceInterface;
+use PhpProxyBuilder\Aop\ProceedingJoinPointInterface;
 use PhpProxyBuilder\Adapter\Cache;
 
 /**
@@ -25,7 +25,7 @@ use PhpProxyBuilder\Adapter\Cache;
  * 
  * @package PublicApi
  */
-class CachingProxy implements AroundProxy {
+class CachingAdvice implements AroundAdviceInterface {
 
     /**
      * @var Cache instance of cache implementation
@@ -53,10 +53,10 @@ class CachingProxy implements AroundProxy {
      * Method called instead of the target object. You have a chance to do whatever you need:
      * For example reject the call, change results etc
      * 
-     * @param ProceedingJoinPoint $jointPoint
+     * @param ProceedingJoinPointInterface $jointPoint
      * @return mixed 
      */
-    public function interceptMethodCall(ProceedingJoinPoint $jointPoint) {
+    public function interceptMethodCall(ProceedingJoinPointInterface $jointPoint) {
         $key = md5(serialize(array(
                     get_class($jointPoint->getTarget()),
                     $jointPoint->getMethodName(),

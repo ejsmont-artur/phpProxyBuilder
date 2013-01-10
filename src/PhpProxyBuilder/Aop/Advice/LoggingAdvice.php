@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace PhpProxyBuilder\Proxy;
+namespace PhpProxyBuilder\Aop\Advice;
 
-use PhpProxyBuilder\AroundProxy;
-use PhpProxyBuilder\Aop\ProceedingJoinPoint;
+use PhpProxyBuilder\Aop\AroundAdviceInterface;
+use PhpProxyBuilder\Aop\ProceedingJoinPointInterface;
 use PhpProxyBuilder\Adapter\Log;
 
 /**
@@ -20,7 +20,7 @@ use PhpProxyBuilder\Adapter\Log;
  * 
  * @package PublicApi
  */
-class LoggingProxy implements AroundProxy {
+class LoggingAdvice implements AroundAdviceInterface {
     /**
      * Log only the basic data no arguments nor results logged 
      */
@@ -79,10 +79,10 @@ class LoggingProxy implements AroundProxy {
     /**
      * In this implementation we log each method call with execution time and optional param/result
      * 
-     * @param ProceedingJoinPoint $jointPoint
+     * @param ProceedingJoinPointInterface $jointPoint
      * @return mixed 
      */
-    public function interceptMethodCall(ProceedingJoinPoint $jointPoint) {
+    public function interceptMethodCall(ProceedingJoinPointInterface $jointPoint) {
         $methodName = $jointPoint->getMethodName();
         
         // log before            

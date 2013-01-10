@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace PhpProxyBuilder;
+namespace PhpProxyBuilder\Aop;
 
-use PhpProxyBuilder\Aop\ProceedingJoinPoint;
+use PhpProxyBuilder\Aop\ProceedingJoinPointInterface;
 
 /**
  * This is the interface you need to implement for your class to become a generic proxy.
@@ -24,14 +24,14 @@ use PhpProxyBuilder\Aop\ProceedingJoinPoint;
  * 
  * @package PublicApi
  */
-interface AroundProxy {
+interface AroundAdviceInterface {
 
     /**
      * Method called instead of the target object. You have a chance to do whatever you need:
      * For example reject the call, change results etc
      * 
-     * @param ProceedingJoinPoint $jointPoint
+     * @param ProceedingJoinPointInterface $jointPoint
      * @return mixed 
      */
-    public function interceptMethodCall(ProceedingJoinPoint $jointPoint);
+    public function interceptMethodCall(ProceedingJoinPointInterface $jointPoint);
 }

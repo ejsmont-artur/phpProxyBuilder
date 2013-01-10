@@ -9,12 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace PhpProxyBuilder\Proxy;
+namespace PhpProxyBuilder\Aop\Advice;
 
-use Exception;
-use PhpProxyBuilder\AroundProxy;
-use PhpProxyBuilder\Aop\ProceedingJoinPoint;
+use PhpProxyBuilder\Aop\AroundAdviceInterface;
+use PhpProxyBuilder\Aop\ProceedingJoinPointInterface;
 use PhpProxyBuilder\Adapter\InstrumentationMonitor;
+use Exception;
 
 /**
  * Class allows addin metrics (timers and counters) to arbitrary objects.
@@ -35,7 +35,7 @@ use PhpProxyBuilder\Adapter\InstrumentationMonitor;
  * 
  * @package PublicApi
  */
-class InstrumentationProxy implements AroundProxy {
+class InstrumentationAdvice implements AroundAdviceInterface {
 
     const SUFFIX_EXCEPTION = '.error';
     const SUFFIX_SUCCESS = '.success';
@@ -79,10 +79,10 @@ class InstrumentationProxy implements AroundProxy {
     /**
      * In this implementation we measure time and count every method call
      * 
-     * @param ProceedingJoinPoint $jointPoint
+     * @param ProceedingJoinPointInterface $jointPoint
      * @return mixed 
      */
-    public function interceptMethodCall(ProceedingJoinPoint $jointPoint) {
+    public function interceptMethodCall(ProceedingJoinPointInterface $jointPoint) {
         $time = $this->monitor->getTime();
 
         if ($this->serviceName) {

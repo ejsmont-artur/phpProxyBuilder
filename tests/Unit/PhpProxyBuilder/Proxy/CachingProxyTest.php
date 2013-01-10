@@ -3,13 +3,13 @@
 namespace Tests\Unit\PhpProxyBuilder\Proxy;
 
 use PhpProxyBuilder\Adapter\Cache\SimpleArrayCache;
-use PhpProxyBuilder\Proxy\CachingProxy;
-use PhpProxyBuilder\Aop\ProceedingJoinPoint;
+use PhpProxyBuilder\Aop\Advice\CachingAdvice;
+use PhpProxyBuilder\Aop\ProceedingJoinPointInterface;
 
 class CachingProxyTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var CachingProxy 
+     * @var CachingAdvice 
      */
     private $instance;
 
@@ -24,7 +24,7 @@ class CachingProxyTest extends \PHPUnit_Framework_TestCase {
     private $cache;
 
     /**
-     * @var ProceedingJoinPoint|PHPUnit_Framework_MockObject_MockObject
+     * @var ProceedingJoinPointInterface|PHPUnit_Framework_MockObject_MockObject
      */
     private $jointPoint;
 
@@ -32,10 +32,10 @@ class CachingProxyTest extends \PHPUnit_Framework_TestCase {
         parent::setup();
 
         $this->cache = new SimpleArrayCache(2);
-        $this->instance = new CachingProxy($this->cache);
+        $this->instance = new CachingAdvice($this->cache);
         $this->target = new \StdClass();
 
-        $this->jointPoint = $this->getMock('PhpProxyBuilder\Aop\ProceedingJoinPoint');
+        $this->jointPoint = $this->getMock('PhpProxyBuilder\Aop\ProceedingJoinPointInterface');
         $this->jointPoint->expects($this->any())->method("getTarget")->will($this->returnValue($this->target));
     }
 

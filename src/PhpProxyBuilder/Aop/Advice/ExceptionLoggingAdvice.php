@@ -9,19 +9,19 @@
  * file that was distributed with this source code.
  */
 
-namespace PhpProxyBuilder\Proxy;
+namespace PhpProxyBuilder\Aop\Advice;
 
-use Exception;
-use PhpProxyBuilder\AroundProxy;
-use PhpProxyBuilder\Aop\ProceedingJoinPoint;
+use PhpProxyBuilder\Aop\AroundAdviceInterface;
+use PhpProxyBuilder\Aop\ProceedingJoinPointInterface;
 use PhpProxyBuilder\Adapter\Log;
+use Exception;
 
 /**
  * Class logging all exceptions thrown from proxied methods.
  * 
  * @package PublicApi
  */
-class ExceptionLoggingProxy implements AroundProxy {
+class ExceptionLoggingAdvice implements AroundAdviceInterface {
 
     /**
      * @var Log instance of the logger to be used
@@ -47,11 +47,11 @@ class ExceptionLoggingProxy implements AroundProxy {
     /**
      * In this implementation we log each exception and rethrow.
      * 
-     * @param ProceedingJoinPoint $jointPoint
+     * @param ProceedingJoinPointInterface $jointPoint
      * @throws \Exception
      * @return mixed 
      */
-    public function interceptMethodCall(ProceedingJoinPoint $jointPoint) {
+    public function interceptMethodCall(ProceedingJoinPointInterface $jointPoint) {
         try {
             return $jointPoint->proceed();
         } catch (Exception $e) {

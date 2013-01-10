@@ -12,7 +12,7 @@
 namespace PhpProxyBuilder\Aop;
 
 /**
- * Interface used in AroundProxy to delegate calls to the target object. 
+ * Interface used in AroundAdviceInterface to delegate calls to the target object. 
  * Allows to get method name, target object and parameters. 
  * 
  * In AOP naming JoinPoint is an instance of execution of a method.
@@ -24,7 +24,7 @@ namespace PhpProxyBuilder\Aop;
  * 
  * @package PublicApi
  */
-interface ProceedingJoinPoint {
+interface ProceedingJoinPointInterface {
 
     /**
      * Proceed with method execution. In case of nested proxies delegates deeper.

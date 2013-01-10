@@ -11,8 +11,9 @@
 
 namespace PhpProxyBuilder\Proxy;
 
-use PhpProxyBuilder\AroundProxy;
-use PhpProxyBuilder\Aop\Implementation\DynamicJoinPoint;
+use PhpProxyBuilder\Aop\AroundAdviceInterface;
+use PhpProxyBuilder\Aop\ProceedingJoinPointInterface;
+use PhpProxyBuilder\Aop\JoinPoint\DynamicJoinPoint;
 
 /**
  * Class provides simple proxy functionality without typehint, static methods etc.
@@ -23,7 +24,7 @@ use PhpProxyBuilder\Aop\Implementation\DynamicJoinPoint;
  * 
  * @package PrivateComponents
  */
-class MagicMethodProxyWrapper {
+class MagicMethodProxy {
 
     /**
      * @var DynamicJoinPoint used to delegate method calls to target
@@ -31,7 +32,7 @@ class MagicMethodProxyWrapper {
     private $joinPoint;
 
     /**
-     * @var AroundProxy proxy with additional logic
+     * @var AroundAdviceInterface proxy with additional logic
      */
     private $proxy;
 
@@ -43,11 +44,11 @@ class MagicMethodProxyWrapper {
     /**
      * Configure instance of a proxy
      * 
-     * @param AroundProxy   $proxy          AroundProxy implementing object that will intercept method calls
-     * @param mixed         $target         proxied object
-     * @param string[]      $methodNames    list of methods to be intercepted, if empty all methods are proxied
+     * @param AroundAdviceInterface $proxy AroundAdviceInterface implementing object that will intercept method calls
+     * @param mixed $target proxied object
+     * @param string[] $methodNames list of methods to be intercepted, if empty all methods are proxied
      */
-    public function __construct(AroundProxy $proxy, $target, $methodNames = array()) {
+    public function __construct(AroundAdviceInterface $proxy, $target, $methodNames = array()) {
         $this->proxy = $proxy;
         $this->joinPoint = new DynamicJoinPoint($target);
 
@@ -68,7 +69,7 @@ class MagicMethodProxyWrapper {
      */
     public function __call($methodName, $arguments) {
         if (empty($this->methods) || isset($this->methods[$methodName])) {
-            // execute through the AroundProxy
+            // execute through the AroundAdviceInterface
             $this->joinPoint->setMethodCall($methodName, $arguments);
             return $this->proxy->interceptMethodCall($this->joinPoint);
         } else {

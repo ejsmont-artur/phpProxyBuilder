@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace PhpProxyBuilder\Aop\Implementation;
+namespace PhpProxyBuilder\Aop\JoinPoint;
 
-use PhpProxyBuilder\Aop\ProceedingJoinPoint;
+use PhpProxyBuilder\Aop\ProceedingJoinPointInterface;
 
 /**
  * Class allowing modification of existing joint point at runtime
@@ -21,7 +21,7 @@ use PhpProxyBuilder\Aop\ProceedingJoinPoint;
  * 
  * @package PrivateComponents
  */
-class DynamicJoinPoint implements ProceedingJoinPoint {
+class DynamicJoinPoint implements ProceedingJoinPointInterface {
 
     /**
      * @var mixed target to delegate to

@@ -9,13 +9,13 @@
  * file that was distributed with this source code.
  */
 
-namespace PhpProxyBuilder\Proxy;
+namespace PhpProxyBuilder\Aop\Advice;
 
-use Exception;
-use PhpProxyBuilder\AroundProxy;
-use PhpProxyBuilder\Aop\ProceedingJoinPoint;
+use PhpProxyBuilder\Aop\AroundAdviceInterface;
+use PhpProxyBuilder\Aop\ProceedingJoinPointInterface;
 use PhpProxyBuilder\Adapter\CircuitBreaker;
 use PhpProxyBuilder\Adapter\CircuitBreaker\ServiceUnavailableException;
+use Exception;
 
 /**
  * Class allows adding Circuit Breaker behaviour to any service object by proxying calls.
@@ -28,7 +28,7 @@ use PhpProxyBuilder\Adapter\CircuitBreaker\ServiceUnavailableException;
  * 
  * @package PublicApi
  */
-class CircuitBreakerProxy implements AroundProxy {
+class CircuitBreakerAdvice implements AroundAdviceInterface {
 
     /**
      * @var CircuitBreaker instance of the breaker to be used
@@ -56,11 +56,11 @@ class CircuitBreakerProxy implements AroundProxy {
     /**
      * In this implementation we ask CircuitBreaker implementation if it is safe to proceed with the service call.
      * 
-     * @param ProceedingJoinPoint $jointPoint
+     * @param ProceedingJoinPointInterface $jointPoint
      * @throws ServiceUnavailableException
      * @return mixed 
      */
-    public function interceptMethodCall(ProceedingJoinPoint $jointPoint) {
+    public function interceptMethodCall(ProceedingJoinPointInterface $jointPoint) {
 
         if ($this->breaker->isAvailable($this->serviceName)) {
             try {

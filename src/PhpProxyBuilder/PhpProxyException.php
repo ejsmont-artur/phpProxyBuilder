@@ -9,16 +9,15 @@
  * file that was distributed with this source code.
  */
 
-namespace PhpProxyBuilder\Adapter\CircuitBreaker;
+namespace PhpProxyBuilder;
 
 use Exception;
 
 /**
- * Exception thrown by the PhpProxyBuilder\Adapter\CircuitBreaker implementations
- * in case of service access being denied by the circuit breaker instance.
+ * Super type for all exceptions thrown by PhpProxy code base.
  * 
  * @package PublicApi
  */
-class ServiceUnavailableException extends Exception {
+class PhpProxyException extends Exception {
     
 }
