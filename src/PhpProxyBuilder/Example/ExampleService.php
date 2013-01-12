@@ -24,24 +24,21 @@ namespace PhpProxyBuilder\Example;
 class ExampleService {
 
     /**
-     * Example public method, main use case. Service has some public method to be proxied.
-     *
-     * @param int $a
-     * @param int $b
-     * @return int 
+     * Example of unstable method for some more testing
+     * 
+     * @return string
      */
-    public function sum($a, $b) {
-        return $a + $b;
+    public function getRandomValue($prefix, $suffix) {
+        return $prefix . mt_rand(1, 1000000) . $suffix;
     }
 
     /**
-     * Service has another public method to demonstrate selective proxying.
-     *
-     * @param mixed $value
-     * @return mixed
+     * Example of unstable method for some more testing
+     * 
+     * @return string
      */
-    public function ping($value) {
-        return $value;
+    public function getOtherValue() {
+        return time() . mt_rand(1, 1000000);
     }
 
     // ===============================================================================================================

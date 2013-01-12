@@ -50,11 +50,13 @@ class DynamicJoinPoint implements ProceedingJoinPointInterface {
     /**
      * Proceed with method execution. In case of nested proxies delegates deeper.
      * 
+     * In this implementaton we just call user function on the target and pass arguments in.
+     * 
      * @throws \Exception target can throw exceptions
      * @return mixed result return of the target method 
      */
     public function proceed() {
-        
+        return call_user_func_array(array($this->target, $this->methodName), $this->arguments);
     }
 
     /**
@@ -87,7 +89,7 @@ class DynamicJoinPoint implements ProceedingJoinPointInterface {
      * Allows to change existing joinPoint properties
      * 
      * @param string    $name       method name
-     * @param mixed     $arguments  arguments
+     * @param mixed[]   $arguments  arguments array
      * @return void
      */
     public function setMethodCall($name, $arguments) {

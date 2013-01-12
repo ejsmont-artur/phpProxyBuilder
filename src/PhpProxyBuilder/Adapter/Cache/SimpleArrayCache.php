@@ -50,6 +50,7 @@ class SimpleArrayCache implements Cache {
      * @return mixed|null value or null if value was not found
      */
     public function get($key) {
+        $key = md5($key);
         if (isset($this->items[$key])) {
             return $this->items[$key];
         }
@@ -65,6 +66,7 @@ class SimpleArrayCache implements Cache {
      * @return void
      */
     public function set($key, $value, $ttl = null) {
+        $key = md5($key);
         // remove oldest item only if reached limit
         if ($this->maxSize) {
             if (count($this->items) >= $this->maxSize) {

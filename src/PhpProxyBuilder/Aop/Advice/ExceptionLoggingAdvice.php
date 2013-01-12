@@ -39,7 +39,7 @@ class ExceptionLoggingAdvice implements AroundAdviceInterface {
      * @param Log $logger           logger to be used
      * @param int $maxTraceDepth    log stack trace just to a limited depth to avoid heavy performance impact
      */
-    public function __construct(Log $logger, $maxTraceDepth = 20) {
+    public function __construct(Log $logger, $maxTraceDepth = 30) {
         $this->logger = $logger;
         $this->maxTraceDepth = $maxTraceDepth;
     }
@@ -61,14 +61,20 @@ class ExceptionLoggingAdvice implements AroundAdviceInterface {
             $depth = 0;
             foreach ($trace as $entry) {
                 if ($depth > $this->maxTraceDepth) {
+                    $partialTrace[] = "... trace truncated";
                     break;
                 }
-                $partialTrace[] = sprintf("%s:%s:%s", $entry['file'], $entry['function'], $entry['line']);
+                $file = isset($entry['file']) ? $entry['file'] : "";
+                $function = isset($entry['function']) ? $entry['function'] : "";
+                $line = isset($entry['line']) ? $entry['line'] : "";
+
+                $partialTrace[] = sprintf("%s:%s:%s", $file, $function, $line);
                 $depth++;
             }
 
             $msg = sprintf("Exception in %s:%s:%s (%d) %s", $e->getFile(), $e->getLine(), $methodName, $e->getCode(), $e->getMessage());
             $this->logger->logWarning($msg, implode("\n", $partialTrace));
+            throw $e;
         }
     }
 

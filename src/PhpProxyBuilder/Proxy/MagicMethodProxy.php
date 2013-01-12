@@ -68,9 +68,9 @@ class MagicMethodProxy {
      * @return mixed returned by proxy or target
      */
     public function __call($methodName, $arguments) {
+        $this->joinPoint->setMethodCall($methodName, $arguments);
         if (empty($this->methods) || isset($this->methods[$methodName])) {
             // execute through the AroundAdviceInterface
-            $this->joinPoint->setMethodCall($methodName, $arguments);
             return $this->proxy->interceptMethodCall($this->joinPoint);
         } else {
             // execute directly through the joinPoint
