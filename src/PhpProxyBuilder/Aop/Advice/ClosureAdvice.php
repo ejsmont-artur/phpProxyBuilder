@@ -22,6 +22,11 @@ use Exception;
  * Class allows to add a closure as a advice, the closure will get instance of ProceedingJoinPointInterface and
  * can use it do proceed as other advices would.
  * 
+ * Closure passed in the constructor will be invoked with instances of
+ * PhpProxyBuilder\Aop\ProceedingJoinPointInterface
+ * 
+ * @see PhpProxyBuilder\Aop\ProceedingJoinPointInterface
+ * 
  * @package PublicApi
  */
 class ClosureAdvice implements AroundAdviceInterface {

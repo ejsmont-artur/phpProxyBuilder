@@ -7,7 +7,24 @@ use PhpProxyBuilder\Adapter\Log\SimpleErrorLog;
 
 class SimpleErrorLogTest extends \PHPUnit_Framework_TestCase {
 
-    private $testLogFile = '/tmp/PhpProxyBuilder-SimpleErrorLog.log';
+    private $testLogFilePrefix = '/tmp/PhpProxyBuilder-SimpleErrorLog.log';
+    private $testLogFile;
+
+    protected function getFileName() {
+        return $this->testLogFilePrefix . microtime(true) . '.log';
+    }
+
+    public function setup() {
+        parent::setup();
+        $this->testLogFile = $this->getFileName();
+    }
+
+    public function teardown() {
+        @unlink($this->testLogFile);
+        parent::teardown();
+    }
+
+    // ================================================== TESTS =======================================================
 
     public function testSanity() {
         $instance = new SimpleErrorLog();
