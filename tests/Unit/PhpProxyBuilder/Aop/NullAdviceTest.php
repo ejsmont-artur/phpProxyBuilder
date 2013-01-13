@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\PhpProxyBuilder\Adapter\Log;
+namespace Tests\Unit\PhpProxyBuilder\Aop;
 
 use PhpProxyBuilder\Aop\Advice\NullAdvice;
 use PhpProxyBuilder\Aop\ProceedingJoinPointInterface;

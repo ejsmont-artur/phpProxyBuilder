@@ -60,8 +60,6 @@ class MagicMethodProxy {
 
     /**
      * Intercpets all method calls and passes through to the target instance.
-     * 
-     * WARNING - this method of proxying does not support type hints and does not pass instanceof checks.
      *
      * @param string    $methodName method to be intercepted
      * @param mixed[]   $arguments  arguments
@@ -75,6 +73,73 @@ class MagicMethodProxy {
         } else {
             // execute directly through the joinPoint
             return $this->joinPoint->proceed();
+        }
+    }
+
+    /**
+     * Intercepts access to all properties and delegates to the target.
+     * 
+     * @param string $name
+     * @param mixed $value 
+     * @return void
+     */
+    public function __set($name, $value) {
+        $this->joinPoint->getTarget()->$name = $value;
+    }
+
+    /**
+     * Intercepts access to all properties and delegates to the target.
+     *
+     * @param string $name
+     * @return mixed
+     */
+    public function __get($name) {
+        return $this->joinPoint->getTarget()->$name;
+    }
+
+    /**
+     * Intercepts calls to __toString and delegates to target by casting it to string
+     * 
+     * @return string
+     */
+    public function __toString() {
+        return ((string) $this->joinPoint->getTarget());
+    }
+
+    /**
+     * Intercepts calls to __sleep and delegates to target
+     * 
+     * @return string[]
+     */
+    public function __sleep() {
+        return $this->joinPoint->getTarget()->__sleep();
+    }
+
+    /**
+     * Intercepts calls to __wakeup and delegates to target
+     * 
+     * @return void
+     */
+    public function __wakeup() {
+        $this->joinPoint->getTarget()->__wakeup();
+    }
+
+    /**
+     * Clears the instance.
+     * 
+     * Excplicitly call destructor on the 
+     * 
+     * @return void
+     */
+    public function __destruct() {
+        if (isset($this->joinPoint)) {
+            if (is_object($this->joinPoint) && method_exists($this->joinPoint, "__destruct")) {
+                $this->joinPoint->__destruct();
+            }
+
+            unset($this->joinPoint);
+            unset($this->proxy);
+            unset($this->methods);
         }
     }
 

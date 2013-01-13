@@ -41,34 +41,4 @@ class MagicMethodBasedFactoryTest extends \PHPUnit_Framework_TestCase {
         $this->assertTrue($result instanceof MagicMethodProxy);
     }
 
-    public function testSelectiveMethods() {
-        // some proxied some not
-        $this->markTestIncomplete();
-    }
-
-    public function testAllMethods() {
-        // some proxied some not
-        $this->markTestIncomplete();
-    }
-
-    public function testSingleMethod() {
-        // some proxied some not
-        $this->markTestIncomplete();
-    }
-
-    public function testSingleGetter() {
-        // some proxied some not
-        $this->markTestIncomplete();
-    }
-
-    public function testSingleMagicGetter() {
-        // some proxied some not
-        $this->markTestIncomplete();
-    }
-
-    public function testToString() {
-        // some proxied some not
-        $this->markTestIncomplete();
-    }
-
 }

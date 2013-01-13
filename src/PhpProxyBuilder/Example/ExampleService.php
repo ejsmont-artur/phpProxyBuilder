@@ -84,7 +84,7 @@ class ExampleService {
      * @return string
      */
     public function __toString() {
-        return ((string) time());
+        return ((string) microtime(true));
     }
 
     /**
@@ -106,12 +106,50 @@ class ExampleService {
     }
 
     /**
+     * Method allowing you to inspect and reset the count of __wakeup calls
+     * 
+     * @param mixed $value number or null
+     * @return void
+     */
+    public function setWakeupCount($value) {
+        self::$wakeupCallCount = $value;
+    }
+
+    /**
+     * Method allowing you to set and reset the count of __wakeup calls
+     * 
+     * @return void
+     */
+    public function getWakeupCount() {
+        return self::$wakeupCallCount;
+    }
+
+    /**
      * Magic method - added just for tests, service does not need that!
      * 
      * @return string
      */
     public function __destruct() {
         self::$destructorCallCount++;
+    }
+
+    /**
+     * Method allowing you to set and reset the count of __destruct calls
+     * 
+     * @param mixed $value number or null
+     * @return void
+     */
+    public function setDestructCount($value) {
+        self::$destructorCallCount = $value;
+    }
+
+    /**
+     * Method allowing you to inspect and reset the count of __destruct calls
+     * 
+     * @return void
+     */
+    public function getDestructCount() {
+        return self::$destructorCallCount;
     }
 
 }

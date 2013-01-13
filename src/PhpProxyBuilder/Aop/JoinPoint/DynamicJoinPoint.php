@@ -97,4 +97,15 @@ class DynamicJoinPoint implements ProceedingJoinPointInterface {
         $this->arguments = $arguments;
     }
 
+    /**
+     * Clears the instance
+     * 
+     * @return string
+     */
+    public function __destruct() {
+        unset($this->methodName);
+        unset($this->arguments);
+        unset($this->target);
+    }
+
 }
