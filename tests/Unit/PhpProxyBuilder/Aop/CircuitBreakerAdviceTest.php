@@ -8,16 +8,18 @@ use PhpProxyBuilder\Aop\ProceedingJoinPointInterface;
 use Exception;
 
 /**
- * Service available:
+ * To make sure we cover all distinct scenarios please see matrixes below.
+ * 
+ * When circuit breaker thinks the service is available:
  *                                      A               B                   C
- *                                   success,   throws not on list,    throws on list
+ * CODE Description                  success,   throws not on list,    throws on list
  *   1  all defaults                    +               +                  N/A
  *   2  empty list + no $throw          +              N/A                 N/A
  *   3  empty list + $throw             +              N/A                 N/A
  *   4  list + no $throw                +               +                   +
  *   5  list + $throw                   +               +                   +
  * 
- * Service unavailable:
+ * When circuit breaker thinks the service is unavailable:
  *  U1  no $throw (same as default)
  *  U2  $throw
  * 
