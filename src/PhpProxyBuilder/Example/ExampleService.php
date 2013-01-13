@@ -25,7 +25,9 @@ class ExampleService {
 
     /**
      * Example of unstable method for some more testing
-     * 
+     *
+     * @param string $prefix added at the beginning
+     * @param string $suffix added to the end
      * @return string
      */
     public function getRandomValue($prefix, $suffix) {
@@ -45,8 +47,19 @@ class ExampleService {
     // All methods below are just to show what works, your service does not need any of that !
     // ===============================================================================================================
 
+    /**
+     * @var int count of how many times constructor was called
+     */
     static $destructorCallCount = 0;
+
+    /**
+     * @var int count of how many times __wakeup was called
+     */
     static $wakeupCallCount = 0;
+
+    /**
+     * @var mixed example of a private property for __get and __set to use
+     */
     private $someState = 0;
 
     /**

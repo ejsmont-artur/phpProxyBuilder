@@ -83,7 +83,7 @@ You can run selected test case by running:
     cd tests
     phpunit Unit/PhpProxyBuilder/Proxy/ArrayCachingProxyTest.php
 
-## Authors
+## Contributors
 
 * Artur Esjmont (https://github.com/ejsmont-artur)
 * Shawn Murphy (https://github.com/seguer)
