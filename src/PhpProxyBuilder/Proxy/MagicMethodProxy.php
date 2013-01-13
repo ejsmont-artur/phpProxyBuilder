@@ -18,9 +18,14 @@ use PhpProxyBuilder\Aop\JoinPoint\DynamicJoinPoint;
 /**
  * Class provides simple proxy functionality without typehint, static methods etc.
  * 
- * Simplistic but fast and does not require any dependencies.
- * 
  * WARNING - this method of proxying does not support type hints and does not pass instanceof checks.
+ * 
+ * This implementation supports magic methods delegation like __get, __toString, __call, __sleep, __wakeup.
+ * 
+ * It also supports property access via magic methods. If target has public property it can be accessed through the proxy.
+ * 
+ * __destruct is not delegated to the target instance as we would not be able to destinguish if it was invoked by
+ * the garbage collector or called manually. You should not call __destruct manually any way.
  * 
  * @package PrivateComponents
  */
