@@ -67,6 +67,25 @@ We will integrate with frameworks to provide implementations of our minimalistic
 4. ClosureAdvice - lets you use a closure instead of full AroundAdviceInterface implementation.
 5. LoggingAdvice - logs all method calls with times and optionally arguments/results.
 
+## Diagrams
+
+Please see below two sequence diagrams with imaginary clinet calling a "doSomething()" method on the Target Object.
+
+Please notice that Advice object is independent from both client and target. It can be reaplaced and tested without
+any changes to the client not target code.
+
+### Diagram without a proxy
+
+Cleint has direct referenct to the Target Object.
+
+![PHP method call sequence diagram without a proxy](/doc/images/sequence-diagram-without-a-proxy.png "sequence diagram without a proxy")
+
+### Diagram with a proxy
+
+Cleint has referenct to the Proxy. It can not access the Target Object directly.
+
+![PHP method call sequence diagram with a proxy object](/doc/images/sequence-diagram-with-a-proxy.png "sequence diagram with a proxy object")
+
 ## Notes
 
 1. Proxied object is not modified in any way, it is just being used. 
@@ -81,13 +100,6 @@ We will integrate with frameworks to provide implementations of our minimalistic
     Have a look at https://github.com/lisachenko/go-aop-php as it looks promising (not sure if it is production ready)
 5. Performance is an imporant factor and we will provide benchmarks and make sure code does not slow down the overall
     execution.
-6. Diagram of objects would look like this:
-
-        proxyImplementationInstance-----<>generatedProxyInstance<>-----targetInstance
-
-    targetInstance and proxyImplementationInstance are "owned" by the generatedProxyInstance. 
-    generatedProxyInstance routes method calls to proxyImplementationInstance.
-    proxyImplementationInstance can decide when and how to delegate to targetInstance (as in CachingAroundProxy)
 
 ## Running tests
 
