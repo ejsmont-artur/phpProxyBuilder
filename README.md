@@ -76,13 +76,9 @@ any changes to the client not target code.
 
 ### Diagram without a proxy
 
-Cleint has direct referenct to the Target Object.
-
 ![PHP method call sequence diagram without a proxy](https://raw.github.com/ejsmont-artur/phpProxyBuilder/master/docs/images/sequence-diagram-without-a-proxy.png "sequence diagram without a proxy")
 
 ### Diagram with a proxy
-
-Cleint has referenct to the Proxy. It can not access the Target Object directly.
 
 ![PHP method call sequence diagram with a proxy object](https://raw.github.com/ejsmont-artur/phpProxyBuilder/master/docs/images/sequence-diagram-with-a-proxy.png "sequence diagram with a proxy object")
 
