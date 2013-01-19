@@ -3,12 +3,14 @@
 namespace Tests\Unit\PhpProxyBuilder\Adapter\Cache;
 
 use PhpProxyBuilder\Adapter\Cache\SimpleArrayCache;
+use PhpProxyBuilder\Adapter\InstrumentorInterface;
+
 
 class SimpleArrayCacheTest extends \PHPUnit_Framework_TestCase {
 
     public function testSanity() {
-        $this->assertTrue(interface_exists('PhpProxyBuilder\Adapter\InstrumentationMonitor'));
-        $this->assertTrue(interface_exists('PhpProxyBuilder\Adapter\CircuitBreaker'));
+        $this->assertTrue(interface_exists('PhpProxyBuilder\Adapter\InstrumentorInterface'));
+        $this->assertTrue(interface_exists('PhpProxyBuilder\Adapter\CircuitBreakerInterface'));
     }
 
     public function testSanityExceptions() {

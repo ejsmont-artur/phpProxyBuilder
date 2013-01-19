@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\PhpProxyBuilder\Adapter\Log;
 
-use PhpProxyBuilder\Adapter\Log;
+use PhpProxyBuilder\Adapter\LogInterface;
 use PhpProxyBuilder\Adapter\Log\SimpleErrorLog;
 
 class SimpleErrorLogTest extends \PHPUnit_Framework_TestCase {
@@ -28,7 +28,7 @@ class SimpleErrorLogTest extends \PHPUnit_Framework_TestCase {
 
     public function testSanity() {
         $instance = new SimpleErrorLog();
-        $this->assertTrue($instance instanceof Log);
+        $this->assertTrue($instance instanceof LogInterface);
     }
 
     public function testCalls() {

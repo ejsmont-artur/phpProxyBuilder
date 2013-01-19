@@ -13,7 +13,7 @@ namespace PhpProxyBuilder\Aop\Advice;
 
 use PhpProxyBuilder\Aop\AroundAdviceInterface;
 use PhpProxyBuilder\Aop\ProceedingJoinPointInterface;
-use PhpProxyBuilder\Adapter\CircuitBreaker;
+use PhpProxyBuilder\Adapter\CircuitBreakerInterface;
 use PhpProxyBuilder\Adapter\CircuitBreaker\ServiceUnavailableException;
 use Exception;
 
@@ -22,7 +22,7 @@ use Exception;
  * 
  * @link http://artur.ejsmont.org/blog/circuit-breaker
  * 
- * Proxy instance is configured for particular service type. You create CircuitBreakerProxy instances
+ * Proxy instance is configured for particular service type. You create CircuitBreakerAdvice instances
  * separately for each service you want to proxy. Service name is held as private member as clients' code
  * does not know that CB is in use so they are not able to provide the service name at call time.
  * 
@@ -31,12 +31,12 @@ use Exception;
 class CircuitBreakerAdvice implements AroundAdviceInterface {
 
     /**
-     * @var CircuitBreaker instance of the breaker to be used
+     * @var CircuitBreakerInterface instance of the breaker to be used
      */
     private $breaker;
 
     /**
-     * @var string CircuitBreakerProxy instance is configured to work for particular service only
+     * @var string name of the service for circuit breaker to distinguis between services
      */
     private $serviceName;
 
@@ -51,7 +51,7 @@ class CircuitBreakerAdvice implements AroundAdviceInterface {
     private $throwOnFailure;
 
     /**
-     * Proxy instance is configured for particular service type. You create CircuitBreakerProxy instances
+     * Proxy instance is configured for particular service type. You create CircuitBreakerAdvice instances
      * separately for each service you want to proxy. Service name is held as private member as clients' code
      * does not know that CB is in use so they are not able to provide the service name at call time.
      * 
@@ -73,12 +73,12 @@ class CircuitBreakerAdvice implements AroundAdviceInterface {
      * In this example sevice could thow some other error types like insufficient funds etc but they would not
      * be considered service availability failures.
      * 
-     * @param CircuitBreaker $breaker     Instance of circuit breaker
+     * @param CircuitBreakerInterface $breaker     Instance of circuit breaker
      * @param type $serviceName           Service name for the circuit breaker to use
      * @param string[] $failOnExceptions  list of exception names indicating service unavailability
      * @param Exception $throw            this exception will be thrown when service becomes unavailable, if null 
      */
-    public function __construct(CircuitBreaker $breaker, $serviceName, $failOnExceptions = array(), $throw = null) {
+    public function __construct(CircuitBreakerInterface $breaker, $serviceName, $failOnExceptions = array(), $throw = null) {
         $this->breaker = $breaker;
         $this->serviceName = $serviceName;
 
@@ -89,7 +89,7 @@ class CircuitBreakerAdvice implements AroundAdviceInterface {
         if (!empty($throw) && $throw instanceof Exception) {
             $this->throwOnFailure = $throw;
         } else {
-            $this->throwOnFailure = new ServiceUnavailableException("CircuitBreakerProxy blocked " . $this->serviceName);
+            $this->throwOnFailure = new ServiceUnavailableException("CircuitBreakerAdvice blocked " . $this->serviceName);
         }
     }
 

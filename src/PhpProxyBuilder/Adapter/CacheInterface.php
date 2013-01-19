@@ -17,7 +17,7 @@ namespace PhpProxyBuilder\Adapter;
  * 
  * @package PublicApi
  */
-interface Cache {
+interface CacheInterface {
 
     /**
      * Load cache item or return null if not present.

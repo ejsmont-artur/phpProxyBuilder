@@ -14,7 +14,7 @@ namespace PhpProxyBuilder\Adapter\CircuitBreaker;
 use PhpProxyBuilder\PhpProxyException;
 
 /**
- * Exception thrown by the PhpProxyBuilder\Adapter\CircuitBreaker implementations
+ * Exception thrown by the PhpProxyBuilder\Adapter\CircuitBreakerInterface implementations
  * in case of service access being denied by the circuit breaker instance.
  * 
  * @package PublicApi

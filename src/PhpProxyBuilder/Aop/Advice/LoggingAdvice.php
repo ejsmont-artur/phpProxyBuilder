@@ -13,10 +13,10 @@ namespace PhpProxyBuilder\Aop\Advice;
 
 use PhpProxyBuilder\Aop\AroundAdviceInterface;
 use PhpProxyBuilder\Aop\ProceedingJoinPointInterface;
-use PhpProxyBuilder\Adapter\Log;
+use PhpProxyBuilder\Adapter\LogInterface;
 
 /**
- * Class allows adding logging to all/selected method calls on a selected object by proxying.
+ * Class allows adding logging method calls on a objects by proxying.
  * 
  * @package PublicApi
  */
@@ -45,7 +45,7 @@ class LoggingAdvice implements AroundAdviceInterface {
     private $name;
 
     /**
-     * @var Log instance of the logger to be used
+     * @var LogInterface instance of the logger to be used
      */
     private $logger;
 
@@ -56,24 +56,23 @@ class LoggingAdvice implements AroundAdviceInterface {
 
     /**
      * Examples:
-     *  - You can log all method calls by invoking:
-     *      new LoggingProxy("Email", $logger);
+     *      You can log all method calls with their parameters:
+     *          new LoggingProxy("Email", $logger, LoggingAdvice::LOG_RESULT);
      * 
-     *  - You can log selected methods by providing their names
-     *      new LoggingProxy("Email", $logger, array("deliver"));
+     * Flags indicate what should be logged along with the method name and time.
+     *      LoggingAdvice::LOG_BASIC_DATA_ONLY - just method name and time
+     *      LoggingAdvice::LOG_ARGUMENTS - include method arguments
+     *      LoggingAdvice::LOG_RESULT - include result of the method call
+     *      LoggingAdvice::LOG_ARGUMENTS_AND_RETURN - include arguments and result of the method call
      * 
-     *  - You can include method parameters and return values by changing $includedData
-     *      new LoggingProxy("PayPal", $logger", array(), LoggingProxy::LOG_RESULT);
-     * 
-     * @param string $name you give name to the LoggingProxy to identify different instances
-     * @param Log $logger logger to be used
-
-     * @param int $includeData one of the constants from LoggingProxy
+     * @param LogInterface    $logger  Logger to be used
+     * @param string $name    You give name to the LoggingProxy to identify different instances
+     * @param int    $flags   One of the constants from LoggingProxy
      */
-    public function __construct($name, Log $logger, $includeData = self::LOG_BASIC_DATA_ONLY) {
-        $this->name = $name;
+    public function __construct(LogInterface $logger, $name, $flags = self::LOG_BASIC_DATA_ONLY) {
         $this->logger = $logger;
-        $this->includeData = $includeData;
+        $this->name = $name;
+        $this->flags = (int) $flags;
     }
 
     /**
@@ -84,27 +83,27 @@ class LoggingAdvice implements AroundAdviceInterface {
      */
     public function interceptMethodCall(ProceedingJoinPointInterface $jointPoint) {
         $methodName = $jointPoint->getMethodName();
-        
-        // log before            
-        if (1 & $this->includeData) {
-            $attachment = $jointPoint->getArgs();
+
+        // binary & operator
+        if (self::LOG_ARGUMENTS & $this->flags) {
+            $attachment = $jointPoint->getArguments();
         } else {
             $attachment = null;
         }
-        $msg = sprintf("Proxy %s::%s calling ...", $this->name, $methodName);
+        $msg = sprintf("Proxy %s::%s ... ", $this->name, $methodName);
         $this->logger->logDebug($msg, $attachment);
 
         $startTime = microtime(true);
         $result = $jointPoint->proceed();
         $endTime = microtime(true);
 
-        // log after
-        if (2 & $this->includeData) {
+        // binary & operator
+        if (self::LOG_RESULT & $this->flags) {
             $attachment = $result;
         } else {
             $attachment = null;
         }
-        $msg = sprintf("Proxy %s::%s returned in %.4f.", $this->name, $methodName, ($endTime - $startTime));
+        $msg = sprintf("Proxy %s::%s returned in %.4f; ", $this->name, $methodName, ($endTime - $startTime));
         $this->logger->logDebug($msg, $attachment);
 
         return $result;

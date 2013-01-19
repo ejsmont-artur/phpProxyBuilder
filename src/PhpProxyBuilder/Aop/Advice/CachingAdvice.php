@@ -13,7 +13,7 @@ namespace PhpProxyBuilder\Aop\Advice;
 
 use PhpProxyBuilder\Aop\AroundAdviceInterface;
 use PhpProxyBuilder\Aop\ProceedingJoinPointInterface;
-use PhpProxyBuilder\Adapter\Cache;
+use PhpProxyBuilder\Adapter\CacheInterface;
 
 /**
  * Caching proxy is used to intercept and cache all method calls based on:
@@ -28,7 +28,7 @@ use PhpProxyBuilder\Adapter\Cache;
 class CachingAdvice implements AroundAdviceInterface {
 
     /**
-     * @var Cache instance of cache implementation
+     * @var CacheInterface instance of cache implementation
      */
     private $cache;
 
@@ -41,10 +41,10 @@ class CachingAdvice implements AroundAdviceInterface {
      * You configure your caching proxy instance when you create it, from then on 
      * it keeps caching method calls.
      * 
-     * @param Cache     $cache  cache implementation
+     * @param CacheInterface     $cache  cache implementation
      * @param int|null  $ttl    time to live in seconds, if null default value of $cache implementation is used.
      */
-    public function __construct(Cache $cache, $ttl = null) {
+    public function __construct(CacheInterface $cache, $ttl = null) {
         $this->cache = $cache;
         $this->ttl = $ttl;
     }

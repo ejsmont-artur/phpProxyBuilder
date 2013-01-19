@@ -11,7 +11,7 @@
 
 namespace PhpProxyBuilder\Adapter\Log;
 
-use PhpProxyBuilder\Adapter\Log;
+use PhpProxyBuilder\Adapter\LogInterface;
 
 /**
  * Minimalistic implementation sending logs to error_log.
@@ -20,7 +20,7 @@ use PhpProxyBuilder\Adapter\Log;
  * 
  * @package PrivateComponents
  */
-class SimpleErrorLog implements Log {
+class SimpleErrorLog implements LogInterface {
 
     const LOG_TO_DEFAULT = 0;
     const LOG_TO_FILE = 3;

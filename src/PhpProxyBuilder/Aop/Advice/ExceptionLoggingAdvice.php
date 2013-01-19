@@ -13,7 +13,7 @@ namespace PhpProxyBuilder\Aop\Advice;
 
 use PhpProxyBuilder\Aop\AroundAdviceInterface;
 use PhpProxyBuilder\Aop\ProceedingJoinPointInterface;
-use PhpProxyBuilder\Adapter\Log;
+use PhpProxyBuilder\Adapter\LogInterface;
 use Exception;
 
 /**
@@ -24,7 +24,7 @@ use Exception;
 class ExceptionLoggingAdvice implements AroundAdviceInterface {
 
     /**
-     * @var Log instance of the logger to be used
+     * @var LogInterface instance of the logger to be used
      */
     private $logger;
 
@@ -36,10 +36,10 @@ class ExceptionLoggingAdvice implements AroundAdviceInterface {
     /**
      * Configure proxy
      * 
-     * @param Log $logger           logger to be used
+     * @param LogInterface $logger           logger to be used
      * @param int $maxTraceDepth    log stack trace just to a limited depth to avoid heavy performance impact
      */
-    public function __construct(Log $logger, $maxTraceDepth = 30) {
+    public function __construct(LogInterface $logger, $maxTraceDepth = 30) {
         $this->logger = $logger;
         $this->maxTraceDepth = $maxTraceDepth;
     }

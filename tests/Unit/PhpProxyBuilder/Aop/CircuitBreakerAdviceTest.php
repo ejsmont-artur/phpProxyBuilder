@@ -3,7 +3,7 @@
 namespace Tests\Unit\PhpProxyBuilder\Aop;
 
 use PhpProxyBuilder\Aop\Advice\CircuitBreakerAdvice;
-use PhpProxyBuilder\Adapter\CircuitBreaker;
+use PhpProxyBuilder\Adapter\CircuitBreakerInterface;
 use PhpProxyBuilder\Aop\ProceedingJoinPointInterface;
 use Exception;
 
@@ -27,7 +27,7 @@ use Exception;
 class CircuitBreakerAdviceTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var PHPUnit_Framework_MockObject_MockObject|CircuitBreaker
+     * @var PHPUnit_Framework_MockObject_MockObject|CircuitBreakerInterface
      */
     private $breaker;
 
@@ -42,7 +42,7 @@ class CircuitBreakerAdviceTest extends \PHPUnit_Framework_TestCase {
     private $advice;
 
     public function setup() {
-        $this->breaker = $this->getMock('PhpProxyBuilder\Adapter\CircuitBreaker');
+        $this->breaker = $this->getMock('PhpProxyBuilder\Adapter\CircuitBreakerInterface');
         $this->joinPoint = $this->getMock('PhpProxyBuilder\Aop\ProceedingJoinPointInterface');
         $this->advice = new CircuitBreakerAdvice($this->breaker, "fakeService");
     }

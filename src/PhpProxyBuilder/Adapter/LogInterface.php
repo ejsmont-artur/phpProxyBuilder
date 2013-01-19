@@ -17,7 +17,7 @@ namespace PhpProxyBuilder\Adapter;
  * 
  * @package PublicApi
  */
-interface Log {
+interface LogInterface {
 
     /**
      * Log message as debug level

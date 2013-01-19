@@ -14,7 +14,7 @@ class ExceptionLoggingAdviceTest extends \PHPUnit_Framework_TestCase {
 
     public function setup() {
         $this->joinPoint = $this->getMock('PhpProxyBuilder\Aop\ProceedingJoinPointInterface');
-        $this->logger = $this->getMock('PhpProxyBuilder\Adapter\Log');
+        $this->logger = $this->getMock('PhpProxyBuilder\Adapter\LogInterface');
     }
 
     /**

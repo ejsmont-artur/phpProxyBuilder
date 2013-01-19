@@ -11,7 +11,7 @@
 
 namespace PhpProxyBuilder\Adapter\Log;
 
-use PhpProxyBuilder\Adapter\Log;
+use PhpProxyBuilder\Adapter\LogInterface;
 
 /**
  * Simple instance for tests, logs by keeping entries in an array.
@@ -20,7 +20,7 @@ use PhpProxyBuilder\Adapter\Log;
  * 
  * @package PrivateComponents
  */
-class DummyArrayLog implements Log {
+class DummyArrayLog implements LogInterface {
 
     /**
      * @var string[] log messages
@@ -75,6 +75,14 @@ class DummyArrayLog implements Log {
     public function getLastMessage() {
         $key = array_pop(array_keys($this->messages));
         return $this->messages[$key];
+    }
+
+    /**
+     * Returns all messages
+     * @return string
+     */
+    public function getMessages() {
+        return $this->messages;
     }
 
 }

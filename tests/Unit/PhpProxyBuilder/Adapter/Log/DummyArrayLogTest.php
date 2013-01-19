@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\PhpProxyBuilder\Adapter\Log;
 
-use PhpProxyBuilder\Adapter\Log;
+use PhpProxyBuilder\Adapter\LogInterface;
 use PhpProxyBuilder\Adapter\Log\DummyArrayLog;
 
 class DummyArrayLogTest extends \PHPUnit_Framework_TestCase {

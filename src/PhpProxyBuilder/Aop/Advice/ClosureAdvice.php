@@ -14,7 +14,7 @@ namespace PhpProxyBuilder\Aop\Advice;
 use \Closure;
 use PhpProxyBuilder\Aop\AroundAdviceInterface;
 use PhpProxyBuilder\Aop\ProceedingJoinPointInterface;
-use PhpProxyBuilder\Adapter\CircuitBreaker;
+use PhpProxyBuilder\Adapter\CircuitBreakerInterface;
 use PhpProxyBuilder\Adapter\CircuitBreaker\ServiceUnavailableException;
 use Exception;
 

@@ -11,7 +11,7 @@
 
 namespace PhpProxyBuilder\Adapter\Cache;
 
-use PhpProxyBuilder\Adapter\Cache;
+use PhpProxyBuilder\Adapter\CacheInterface;
 
 /**
  * Simple example of the CacheInterface implementation using in-memory array.
@@ -21,7 +21,7 @@ use PhpProxyBuilder\Adapter\Cache;
  * 
  * @package PrivateComponents
  */
-class SimpleArrayCache implements Cache {
+class SimpleArrayCache implements CacheInterface {
 
     /**
      * @var mixed[] cached values are indexed by key

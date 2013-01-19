@@ -13,7 +13,7 @@ namespace PhpProxyBuilder\Aop\Advice;
 
 use PhpProxyBuilder\Aop\AroundAdviceInterface;
 use PhpProxyBuilder\Aop\ProceedingJoinPointInterface;
-use PhpProxyBuilder\Adapter\InstrumentationMonitor;
+use PhpProxyBuilder\Adapter\InstrumentorInterface;
 use Exception;
 
 /**
@@ -41,7 +41,7 @@ class InstrumentationAdvice implements AroundAdviceInterface {
     const SUFFIX_SUCCESS = '.success';
 
     /**
-     * @var InstrumentationMonitor instance of the metrics gathering instance
+     * @var InstrumentorInterface instance of the metrics gathering instance
      */
     private $monitor;
 
@@ -66,11 +66,11 @@ class InstrumentationAdvice implements AroundAdviceInterface {
      *  - If my service has slow and fast methods i may want to track them separately
      *      new InstrumentationProxy($monitor, 'ProfileService', true);
      * 
-     * @param InstrumentationMonitor $monitor
+     * @param InstrumentorInterface $monitor
      * @param string $namePrefix optional name to be used for timers prefix, if null target class name is used
      * @param boolean $metricPerMethod when true metrics are collected for each method separately
      */
-    public function __construct(InstrumentationMonitor $monitor, $namePrefix = null, $metricPerMethod = false) {
+    public function __construct(InstrumentorInterface $monitor, $namePrefix = null, $metricPerMethod = false) {
         $this->monitor = $monitor;
         $this->namePrefix = $namePrefix;
         $this->metricPerMethod = $metricPerMethod;
@@ -85,8 +85,8 @@ class InstrumentationAdvice implements AroundAdviceInterface {
     public function interceptMethodCall(ProceedingJoinPointInterface $jointPoint) {
         $time = $this->monitor->getTime();
 
-        if ($this->serviceName) {
-            $name = $this->serviceName;
+        if ($this->namePrefix) {
+            $name = $this->namePrefix;
         } else {
             $name = get_class($jointPoint->getTarget());
         }
@@ -96,10 +96,12 @@ class InstrumentationAdvice implements AroundAdviceInterface {
 
         try {
             $result = $jointPoint->proceed();
-            $this->monitor->incrementTimer($name . '.' . self::SUFFIX_SUCCESS, $time);
+            $this->monitor->incrementTimer($name . self::SUFFIX_SUCCESS, $time);
+            $this->monitor->incrementCounter($name . self::SUFFIX_SUCCESS);
             return $result;
         } catch (Exception $e) {
-            $this->monitor->incrementTimer($name . '.' . self::SUFFIX_EXCEPTION, $time);
+            $this->monitor->incrementTimer($name . self::SUFFIX_EXCEPTION, $time);
+            $this->monitor->incrementCounter($name . self::SUFFIX_EXCEPTION);
             throw $e;
         }
     }

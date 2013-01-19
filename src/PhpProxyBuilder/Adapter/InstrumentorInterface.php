@@ -12,17 +12,21 @@
 namespace PhpProxyBuilder\Adapter;
 
 /**
- * Minimal interface for code instrumentation (counters and timers).
+ * Minimal interface for code instrumentation, allows to count events and measure execution time.
+ * 
+ * Please note that this is interface allowing to gather metrics only, it is not concerned with 
+ * how they get persisted or exported. To collect metrics in your client code you should only use these methods.
  * 
  * @package PublicApi
  */
-interface InstrumentationMonitor {
+interface InstrumentorInterface {
 
     /**
      * Increments named counter by $value
      * 
      * @param string   $name   name of the counter 
      * @param int      $value  value to be added to the counter, default 1
+     * @return InstrumentorInterface returns $this for chaining
      */
     public function incrementCounter($name, $value = 1);
 
@@ -38,7 +42,7 @@ interface InstrumentationMonitor {
      * 
      * @param   string  $name   name of the timer
      * @param   mixed   $time   time value acquired from getTime() method
-     * @return void
+     * @return InstrumentorInterface returns $this for chaining
      */
     public function incrementTimer($name, $time);
 }
