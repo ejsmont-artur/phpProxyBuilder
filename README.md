@@ -78,13 +78,13 @@ any changes to the client not target code.
 
 Cleint has direct referenct to the Target Object.
 
-![PHP method call sequence diagram without a proxy](/doc/images/sequence-diagram-without-a-proxy.png "sequence diagram without a proxy")
+![PHP method call sequence diagram without a proxy](https://raw.github.com/ejsmont-artur/phpProxyBuilder/master/docs/images/sequence-diagram-without-a-proxy.png "sequence diagram without a proxy")
 
 ### Diagram with a proxy
 
 Cleint has referenct to the Proxy. It can not access the Target Object directly.
 
-![PHP method call sequence diagram with a proxy object](/doc/images/sequence-diagram-with-a-proxy.png "sequence diagram with a proxy object")
+![PHP method call sequence diagram with a proxy object](https://raw.github.com/ejsmont-artur/phpProxyBuilder/master/docs/images/sequence-diagram-with-a-proxy.png "sequence diagram with a proxy object")
 
 ## Notes
 
