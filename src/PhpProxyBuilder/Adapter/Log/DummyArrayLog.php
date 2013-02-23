@@ -74,7 +74,8 @@ class DummyArrayLog implements LogInterface {
      */
     public function getLastMessage() {
         $messagesClone = $this->messages;
-        $key = array_pop(array_keys($messagesClone));
+        $keys = array_keys($messagesClone);
+        $key = array_pop($keys);
         return $this->messages[$key];
     }
 

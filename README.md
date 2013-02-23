@@ -1,5 +1,7 @@
 # phpProxyBuilder
 
+[![Build Status](https://travis-ci.org/ejsmont-artur/phpProxyBuilder.png)](https://travis-ci.org/ejsmont-artur/phpProxyBuilder)
+
 Library allowing you to add proxy objects around arvitrary class instances to add behaviour at runtime. 
 
 Library employs concepts of Aspect Oriented Programming where a certain logic (like caching) is reused across the
