@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="phpProxyBuilder" default="ci" basedir=".">
 
-    <!-- ========================================= PROPERTIES ====================================================== -->
+    <!-- ===================================== CUSTOM PROPERTIES =================================================== -->
 
     <property name="product" value="phpProxyBuilder"/>
-    <property name="version" value="0.0.1"/>
+    <property name="version" value="0.1.0"/>
+    
+    
+    <!-- ==================================== GENERIC PROPERTIES =================================================== -->
+    
     <tstamp>
         <format property="build.time" pattern="yyyyMMdd-HHmmss" />
     </tstamp>
@@ -16,7 +20,7 @@
     </tstamp>
     <property name="build.name" value="${product}-${version}-${build.time}" />
     
-    <!-- ============================================ BUILD ======================================================== -->
+    <!-- ======================================== PREPARATIONS ===================================================== -->
 
     <target name="clean">
         <delete dir="${basedir}/build" />
@@ -31,6 +35,66 @@
     </target>
     
     <target name="quick" depends="clean,init"/>
+
+    <!-- ========================================== COMPOSER ====================================================== -->
+
+    <target name="check-composer">
+        <available property="composer.phar.exists" file="composer.phar"/>
+    </target>
+
+    <target name="fetch-composer" depends="check-composer" unless="composer.phar.exists">
+        <echo >Fetching composer.phar</echo>   
+        <exec executable="/bin/bash" failonerror="on">
+            <arg value="-c" />
+            <arg value="curl -s https://getcomposer.org/installer | php" />
+        </exec>
+    </target>
+
+    <target name="setup" depends="check-composer,fetch-composer">
+        <echo >Updating composer dependencies</echo>
+        <exec executable="php" dir="${basedir}" failonerror="on">
+            <arg line="-d apc.enable_cli=0 composer.phar update" />
+        </exec>
+    </target>
+
+    <!-- ======================================== GIT RELATED ====================================================== -->
+
+    <target name="git-check-status">
+        <exec executable="/bin/bash" failonerror="on" outputproperty="git-status-not-empty">
+            <arg value="-c" />
+            <arg value="git status -s" />
+        </exec>
+    </target>
+
+    <target name="git-fetch-tags">
+        <exec executable="/bin/bash" failonerror="on">
+            <arg value="-c" />
+            <arg value="git fetch --tags" />
+        </exec>
+    </target>
+    
+    <target name="git-create-tag" depends="git-check-status">
+        <fail message="Can not tag a dirty folder. Commit or revert first.">
+            <condition>
+                <not>
+                    <equals arg1="${git-status-not-empty}" arg2=""/>
+                </not>
+            </condition>
+        </fail>
+        <exec executable="/bin/bash" failonerror="on">
+            <arg value="-c" />
+            <arg value="git tag -m 'taggin ${version}' ${version}" />
+        </exec>
+    </target>
+
+    <target name="git-push-tags">
+        <exec executable="/bin/bash" failonerror="on">
+            <arg value="-c" />
+            <arg value="git push --tags" />
+        </exec>
+    </target>
+
+    <target name="git-tag"   depends="git-fetch-tags,git-create-tag,git-push-tags"/>
 
     <!-- ============================================= FULL ======================================================== -->
 
