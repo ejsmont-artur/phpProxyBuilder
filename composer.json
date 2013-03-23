@@ -15,10 +15,10 @@
     "require": {
         "php": ">=5.3.0"
     },
-    "target-dir": "Ejsmont/PhpProxyBuilder",
+    "target-dir": "PhpProxyBuilder",
     "autoload": {
         "psr-0": {
-            "PhpProxyBuilder": "src/Ejsmont"
+            "PhpProxyBuilder": "src"
         }
     }
 }
