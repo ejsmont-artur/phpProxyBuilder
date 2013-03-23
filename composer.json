@@ -1,7 +1,7 @@
 {
-    "name": "ejsmont-artur/PhpProxyBuilder",
-    "type": "symfony-bundle",
-    "description": "PHP Proxy Builder - proxy objects and code reuse library.",
+    "name": "ejsmont-artur/php-proxy-builder",
+    "type": "library",
+    "description": "PHP Proxy Builder - AOP inspired proxy pattern library.",
     "keywords": ["proxy pattern", "proxy object", "proxy", "AOP"],
     "homepage": "https://github.com/ejsmont-artur/phpProxyBuilder",
     "license": "MIT",
