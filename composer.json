@@ -18,7 +18,7 @@
     "target-dir": "Ejsmont/PhpProxyBuilder",
     "autoload": {
         "psr-0": {
-            "Ejsmont\\PhpProxyBuilder": "src"
+            "PhpProxyBuilder": "src"
         }
     }
 }
