@@ -4,7 +4,7 @@
     <!-- ===================================== CUSTOM PROPERTIES =================================================== -->
 
     <property name="product" value="phpProxyBuilder"/>
-    <property name="version" value="0.1.3"/>
+    <property name="version" value="0.1.4"/>
     
     
     <!-- ==================================== GENERIC PROPERTIES =================================================== -->

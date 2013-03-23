@@ -15,7 +15,6 @@
     "require": {
         "php": ">=5.3.0"
     },
-    "target-dir": "PhpProxyBuilder",
     "autoload": {
         "psr-0": {
             "PhpProxyBuilder": "src"
