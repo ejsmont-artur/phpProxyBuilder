@@ -14,9 +14,6 @@ namespace PhpProxyBuilder\Aop\Advice;
 use \Closure;
 use PhpProxyBuilder\Aop\AroundAdviceInterface;
 use PhpProxyBuilder\Aop\ProceedingJoinPointInterface;
-use PhpProxyBuilder\Adapter\CircuitBreakerInterface;
-use PhpProxyBuilder\Adapter\CircuitBreaker\ServiceUnavailableException;
-use Exception;
 
 /**
  * Class allows to add a closure as a advice, the closure will get instance of ProceedingJoinPointInterface and
